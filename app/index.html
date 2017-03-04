@@ -13,6 +13,26 @@
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
   <link rel="stylesheet" href="app.css">
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script type="text/javascript">
+      $(document).ready(function () {
+          $('#btn').click(function () {
+              var data = {
+                  email: $('#email').val(),
+                  password: $('#pass').val(),
+                  confirmPassword: $('#pass2').val()
+              };
+
+              $.ajax({
+                  type: 'POST',
+                  url: 'http://localhost:28506/api/Account/Register',
+                  contentType: 'application/json; charset=utf-8',
+                  data: JSON.stringify(data)
+              }).fail(showError);
+          });
+      });
+  </script>
 </head>
 <body>
   <ul class="menu">
@@ -23,6 +43,23 @@
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
+
+
+  <form>
+    Email:<br>
+    <input type="text" name="email" id="email">
+    <br>
+    Password:<br>
+    <input type="text" name="pass" id="pass">
+    <br>
+    Repeat Password:<br>
+    <input type="text" name="pass2" id="pass2">
+    <br><br>
+    <input type="submit" id="btn" value="Submit">
+  </form>
+  <div id="resultDiv">
+
+
 
   <div ng-view></div>
 
