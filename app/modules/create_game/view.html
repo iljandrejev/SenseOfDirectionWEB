@@ -1,0 +1,196 @@
+<div class="ui container">
+    <h2 class="title " style="margin-top: 1em;">Create new game <span ng-if="formData.title != underfined">{{": "+ formData.title }}</span></h2>
+
+    <div class="ui three top attached steps">
+        <div class="active step">
+            <i class="truck icon"></i>
+            <div class="content">
+                <div class="title">Shipping</div>
+                <div class="description">Choose your shipping options</div>
+            </div>
+        </div>
+        <div class="disabled step">
+            <i class="payment icon"></i>
+            <div class="content">
+                <div class="title">Billing</div>
+                <div class="description">Enter billing information</div>
+            </div>
+        </div>
+        <div class="disabled step">
+            <i class="info icon"></i>
+            <div class="content">
+                <div class="title">Confirm Order</div>
+                <div class="description">Verify order details</div>
+            </div>
+        </div>
+    </div>
+    <div class="ui attached segment">
+        <form class="ui form create_game" name="" ng-submit="submit()" >
+            <div class="ui grid">
+                <div class="ten wide column">
+                    <div class="field">
+                        <label>Game title</label>
+                        <input type="text" class="input" name="game_title" placeholder="Please name your game" ng-model="formData.title">
+                    </div>
+                    <div class="field">
+                        <label>Description</label>
+                        <textarea name="game_description" placeholder="Please describe your game" ng-model="formData.description"></textarea>
+                    </div>
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Game start datetime</label>
+                            <input type="text" name="game_start" placeholder="When game should start?" ng-model="formData.startDT">
+                        </div>
+                        <div class="field">
+                            <label>Game end datetime</label>
+                            <input type="text" name="game_start" placeholder="When game should end?" ng-model="formData.endDT">
+                        </div>
+                    </div>
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Participated teams max number</label>
+                            <input type="number" name="teams_max" placeholder="How many teams can participate?" min="0" ng-model="formData.teamsLimit">
+                        </div>
+                        <div class="ui segment">
+                            <div class="field">
+                                <div class="ui toggle checkbox">
+                                    <input type="checkbox" name="gift" tabindex="0" ng-model="formData.manualApprove">
+                                    <label>Do you want manually approve teams?</label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="ui grid">
+                        <div class="six wide column">
+                            <div class="field">
+                                <label>Latitude</label>
+                                <input type="text" readonly class="game_init_lat" name="game_init_lat" placeholder="Click on map to set startpoint" ng-model="formData.initLat">
+                            </div>
+                        </div>
+                        <div class="six wide column">
+                            <div class="field">
+                                <label>Longitude</label>
+                                <input type="text" readonly class="game_init_lng" name="game_init_lng" placeholder="Click on map to set startpoint" ng-model="formData.initLng">
+                            </div>
+                        </div>
+                        <div class="three wide column">
+                            <div class="field">
+                                <label>Radius</label>
+                                <div class="ui right labeled input">
+                                    <input type="number" name="radius" min="50" step="20" ng-model="formData.radius">
+                                    <div class="ui basic label">
+                                        m
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="six wide column">
+                    <div id='map'></div>
+                </div>
+            </div>
+<div class="actions sixteen wide column right aligned">
+    <button type="submit" class="ui button green">Save game </button>
+    <button type="button" class="ui button grey disabled">Publish game </button>
+</div>
+            <div class="ui disabled inverted dimmer">
+                <div class="ui large text loader creating-new-game">Creatin new game ...</div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    var marker;
+    $(document).ready(function () {
+        L.mapbox.accessToken = 'pk.eyJ1IjoiaWxqYW5kcmVqZSIsImEiOiJjaXpxdXFvNW0wMDFkMnJvMXJ2ZThkbXl4In0.nmD8qExtjSK-lSOAgCAs5Q';
+        var map = L.mapbox.map('map', 'mapbox.streets')
+            .setView([59.39547889999999, 24.664316900000017], 17);
+        marker = L.marker(new L.LatLng(59.39547889999999, 24.664316900000017), {
+            icon: L.mapbox.marker.icon({
+                'marker-color': 'ff8888'
+            }),
+            draggable: true
+        });
+        var scope = angular.element($(".form.create_game")).scope();
+        map.on('click',function(e){
+           marker.setLatLng(e.latlng);
+           marker.addTo(map);
+            scope.$apply(function(){
+                console.log(scope);
+                scope.formData.initLat = e.latlng.lat;
+                scope.formData.initLng = e.latlng.lng;
+            });
+        });
+
+
+        $('.ui.form.create_game')
+            .form({
+                fields: {
+                    game_title: {
+                        identifier: 'game_title',
+                        rules: [
+                            {
+                                type   : 'empty',
+                                prompt : 'Please enter game title'
+                            }
+                        ]
+                    },
+                    game_description: {
+                        identifier: 'game_description',
+                        rules: [
+                            {
+                                type   : 'empty',
+                                prompt : 'Please enter game description'
+                            }
+                        ]
+                    },
+                    gender: {
+                        identifier: 'gender',
+                        rules: [
+                            {
+                                type   : 'empty',
+                                prompt : 'Please select a gender'
+                            }
+                        ]
+                    },
+                    username: {
+                        identifier: 'username',
+                        rules: [
+                            {
+                                type   : 'empty',
+                                prompt : 'Please enter a username'
+                            }
+                        ]
+                    },
+                    password: {
+                        identifier: 'password',
+                        rules: [
+                            {
+                                type   : 'empty',
+                                prompt : 'Please enter a password'
+                            },
+                            {
+                                type   : 'minLength[6]',
+                                prompt : 'Your password must be at least {ruleValue} characters'
+                            }
+                        ]
+                    },
+                    terms: {
+                        identifier: 'terms',
+                        rules: [
+                            {
+                                type   : 'checked',
+                                prompt : 'You must agree to the terms and conditions'
+                            }
+                        ]
+                    }
+                }
+            })
+        ;
+    });
+
+</script>
+

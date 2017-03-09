@@ -1,0 +1,43 @@
+<div class="ui container" ng-controller="View1Ctrl">
+    <div ng-if="games==underfined" class="ui info message">
+        <i class="close icon"></i>
+        <div class="header">
+            No available games
+        </div>
+        <ul class="list">
+            <li>Sorry, but right now no availables games are near you</li>
+            <li>Create your own one.</li>
+        </ul>
+    </div>
+    <div class="ui cards segment games">
+        <div class="ui active  inverted dimmer">
+            <div class="ui indeterminate text loader">Loading games</div>
+        </div>
+        <p></p>
+        <div class="game card" ng-repeat="game in games">
+            <div class="image">
+                <img src="{{game.mapUrl}}">
+            </div>
+            <div class="content">
+
+                <div class="header">
+                    {{game.title}}
+                </div>
+                <div class="meta">
+                    {{game.startDateTime}}
+                </div>
+                <div class="description">
+                    {{game.description}}
+                </div>
+            </div>
+            <div class="extra content">
+                <div class="ui two buttons">
+                    <div class="ui basic green button">Participate</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+

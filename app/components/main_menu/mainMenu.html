@@ -1,0 +1,88 @@
+<div class="ui large top menu">
+    <div class="ui container">
+        <a href="/#/view1" class="item">
+            Home
+        </a>
+        <a href="/#/game/create" class="item">
+            Create game
+        </a>
+        <div class="right menu">
+            <div class="ui dropdown item">
+                Language <i class="dropdown icon"></i>
+                <div class="menu">
+                    <a class="item">English</a>
+                    <a class="item">Russian</a>
+                    <a class="item">Spanish</a>
+                </div>
+            </div>
+            <div class="item">
+                <div class="ui buttons">
+                    <button class="ui primary button login-btn" ng-click="loginWin()">Sign In</button>
+                    <div class="or"></div>
+                    <button class="ui info button signup-btn"  ng-click="signupWin()">Sign Up</button>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="ui modal small login">
+        <i class="close icon"></i>
+        <div class="header">
+            Login
+        </div>
+        <div class="content">
+
+            <form class="ui form" ng-submit="submitSingIn()">
+                <div class="field">
+                    <label>Email:</label>
+                    <input type="text" name="email">
+                </div>
+
+                <div class="field">
+                    <label>Password:</label>
+                    <input type="text" name="pass">
+                </div>
+
+
+
+                <div class="actions right aligned">
+                    <input class="ui button green " type="submit" value="Sign in">
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <div class="ui modal small signup">
+        <i class="close icon"></i>
+        <div class="header">
+            Create your account
+        </div>
+        <div class="content">
+
+            <form class="ui form" ng-submit="submitSingUp()">
+                <div class="field">
+                    <label>Email:</label>
+                    <input type="text" name="email" id="email" ng-model="signup.email">
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                        <label>Password:</label>
+                        <input type="text" name="pass" id="pass" ng-model="signup.password">
+                    </div>
+                    <div class="field">
+                        <label>Repeat password:</label>
+                        <input type="text" name="pass2" id="pass2" ng-model="signup.confirmPassword">
+                    </div>
+                </div>
+
+                <div class="actions right aligned">
+                    <input class="ui button green " type="submit" ng-click="test_click()" value="Create account">
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
