@@ -14,7 +14,7 @@ angular.module('myApp.view1', ['ngRoute'])
 
         $http({
             method: 'GET',
-            url: appConfig.remoteAPIService + 'api/game',
+            url: appConfig.remoteAPIServiceHost + 'api/game',
             headers: {
                 "Authorization" : "bearer o8fhM4RNcxHl0LW9ccAwWvl-_XQBHG_hryqa6CgoFxo11-rnxAtEp9ht0aZCKGIOIT04SyzAlbBY4mR5NHbvrmdjKlqvVY7P-LsFFstyfNtUSfOWRgfuc6N_KzlN5vgOI9d_peJrrwBmyMkf1rIJbOxb0DgrBkd6_u1XRMud31oCPNdY2qIphhMlZ4hUVabxODPBtvqG3MRFKFVQhcZwinclOWj0HdIzgStZ9YQ0Q3htTbwMZ_Vk7yk77HjfyYT5lZW2ejndb-WyD24TC-Rt6OpDg6lmSFUIDxip2rJPVfzLmxaLeSW1DMCw0rZ-MAzwLg4IBAKK-bKaKYelKV8Ev-VBVPXDPC4JPYcnnu70ubi9rKDr-A_sT3vGtZQFAxCRjS6CM58ZnND_RbwZH4wNfvf0eIJ1bLlQqr9SMlN7Vlqww8XU1pqXCcPqltgdKY5DGPkgxq_kTsXiucwFE8LJOQ"
             }

@@ -3,18 +3,23 @@
  */
 function HeroDetailController($scope, $http ,appConfig) {
 $scope.signupWin = function(){
-    $('.signup').modal('show');
+    $('.signup').modal({
+        blurring: true
+    }).modal('show');
 };
 $scope.loginWin = function(){
     $('.login').modal('show');
 };
-$scope.login = {};
+$scope.login = {
+    grant_type: 'password'
+};
 $scope.signup = {};
 $scope.submitSignUp = function(){
     alert('started');
+    console.log($scope.signup);
     $http({
         method: 'POST',
-        url: appConfig.remoteAPIService + 'api/account/register',
+        url: appConfig.getRemoteServiceUrl('api/account/register'),
         data: $scope.signup
 
     }).then(function successCallback(response){
@@ -31,7 +36,23 @@ $scope.submitSignUp = function(){
     });
 };
 $scope.submitSignIn = function(){
+    $http({
+        method: 'POST',
+        url: appConfig.getRemoteServiceUrl('Token'),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        data: $scope.login
 
+    }).then(function successCallback(response){
+        alert('Login successided! ');
+
+        console.log(response);
+
+
+    }, function errorCallback(response){
+        alert('Login failed');
+        console.log(response);
+        console.log('failer');
+    });
 };
 
 $scope.test_click = function() {

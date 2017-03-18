@@ -1,18 +1,18 @@
 <div class="ui container">
-    <h2 class="title " style="margin-top: 1em;">Create new game <span ng-if="formData.title != underfined">{{": "+ formData.title }}</span></h2>
+    <h2 class="title " style="margin-top: 1em;">Create new game </h2>
 
     <div class="ui three top attached steps">
         <div class="active step">
-            <i class="truck icon"></i>
+            <i class="map outline icon"></i>
             <div class="content">
-                <div class="title">Shipping</div>
-                <div class="description">Choose your shipping options</div>
+                <div class="title">Game</div>
+                <div class="description"><span ng-if="formData.title != underfined">{{ formData.title }}</span></div>
             </div>
         </div>
         <div class="disabled step">
-            <i class="payment icon"></i>
+            <i class="puzzle icon"></i>
             <div class="content">
-                <div class="title">Billing</div>
+                <div class="title">Challanges</div>
                 <div class="description">Enter billing information</div>
             </div>
         </div>
@@ -78,7 +78,7 @@
                             <div class="field">
                                 <label>Radius</label>
                                 <div class="ui right labeled input">
-                                    <input type="number" name="radius" min="50" step="20" ng-model="formData.radius">
+                                    <input type="number" name="radius" min="50" step="20" ng-change="radius()" class="disabled radius" ng-model="formData.radius">
                                     <div class="ui basic label">
                                         m
                                     </div>
@@ -89,7 +89,7 @@
                     </div>
                 </div>
                 <div class="six wide column">
-                    <div id='map'></div>
+                    <div id='map' ng-init="init()"></div>
                 </div>
             </div>
 <div class="actions sixteen wide column right aligned">
@@ -103,94 +103,8 @@
     </div>
 </div>
 <script>
-    var marker;
-    $(document).ready(function () {
-        L.mapbox.accessToken = 'pk.eyJ1IjoiaWxqYW5kcmVqZSIsImEiOiJjaXpxdXFvNW0wMDFkMnJvMXJ2ZThkbXl4In0.nmD8qExtjSK-lSOAgCAs5Q';
-        var map = L.mapbox.map('map', 'mapbox.streets')
-            .setView([59.39547889999999, 24.664316900000017], 17);
-        marker = L.marker(new L.LatLng(59.39547889999999, 24.664316900000017), {
-            icon: L.mapbox.marker.icon({
-                'marker-color': 'ff8888'
-            }),
-            draggable: true
-        });
-        var scope = angular.element($(".form.create_game")).scope();
-        map.on('click',function(e){
-           marker.setLatLng(e.latlng);
-           marker.addTo(map);
-            scope.$apply(function(){
-                console.log(scope);
-                scope.formData.initLat = e.latlng.lat;
-                scope.formData.initLng = e.latlng.lng;
-            });
-        });
 
 
-        $('.ui.form.create_game')
-            .form({
-                fields: {
-                    game_title: {
-                        identifier: 'game_title',
-                        rules: [
-                            {
-                                type   : 'empty',
-                                prompt : 'Please enter game title'
-                            }
-                        ]
-                    },
-                    game_description: {
-                        identifier: 'game_description',
-                        rules: [
-                            {
-                                type   : 'empty',
-                                prompt : 'Please enter game description'
-                            }
-                        ]
-                    },
-                    gender: {
-                        identifier: 'gender',
-                        rules: [
-                            {
-                                type   : 'empty',
-                                prompt : 'Please select a gender'
-                            }
-                        ]
-                    },
-                    username: {
-                        identifier: 'username',
-                        rules: [
-                            {
-                                type   : 'empty',
-                                prompt : 'Please enter a username'
-                            }
-                        ]
-                    },
-                    password: {
-                        identifier: 'password',
-                        rules: [
-                            {
-                                type   : 'empty',
-                                prompt : 'Please enter a password'
-                            },
-                            {
-                                type   : 'minLength[6]',
-                                prompt : 'Your password must be at least {ruleValue} characters'
-                            }
-                        ]
-                    },
-                    terms: {
-                        identifier: 'terms',
-                        rules: [
-                            {
-                                type   : 'checked',
-                                prompt : 'You must agree to the terms and conditions'
-                            }
-                        ]
-                    }
-                }
-            })
-        ;
-    });
 
 </script>
 

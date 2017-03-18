@@ -7,8 +7,15 @@ angular.module('myApp', [
   'myApp.create_game',
   'myApp.version'
 ])
+    //Config
     .constant('appConfig',{
-        remoteAPIService: 'http://localhost:28961/'
+        remoteAPIServiceHost: 'http://localhost:28961/',
+        mapboxAccessToken: "pk.eyJ1IjoiaWxqYW5kcmVqZSIsImEiOiJjaXpxdXFvNW0wMDFkMnJvMXJ2ZThkbXl4In0.nmD8qExtjSK-lSOAgCAs5Q",
+        getRemoteServiceUrl: function(path){
+            return this.remoteAPIServiceHost + path;
+        }
+
+
 })
     .factory('accessFac',function(){
         var obj = {}
@@ -21,7 +28,8 @@ angular.module('myApp', [
         }
         return obj;
     })
-    .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
+    .config(['$locationProvider', '$routeProvider', '$httpProvider',function($locationProvider, $routeProvider, $httpProvider) {
+
   //$locationProvider.hashPrefix('!');
   /*  $routeProvider.
     when('/games', {templateUrl: 'view1/view1.html',   controller: PhoneListCtrl}).
@@ -32,6 +40,10 @@ angular.module('myApp', [
     $routeProvider
 
         .otherwise({redirectTo: '/view1'});
+
+        $httpProvider.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+
+
 
 }]);
 
